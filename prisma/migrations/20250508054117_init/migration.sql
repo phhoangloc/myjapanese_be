@@ -1,0 +1,17 @@
+-- CreateTable
+CREATE TABLE `Blog` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `archive` VARCHAR(191) NOT NULL DEFAULT 'blog',
+    `hostId` INTEGER NOT NULL,
+    `slug` VARCHAR(191) NOT NULL,
+    `content` TEXT NOT NULL,
+    `censor` BOOLEAN NOT NULL DEFAULT false,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updateDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    UNIQUE INDEX `Blog_slug_key`(`slug`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Blog` ADD CONSTRAINT `Blog_hostId_fkey` FOREIGN KEY (`hostId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -12,7 +12,6 @@ export const route = (app: Express) => {
     app.post("/api/signup", Anonimous.SignUp)
     app.post("/api/login", Anonimous.Login)
     app.get("/api/active", Anonimous.Active)
-
     app.get("/api/blog", Anonimous.GetManyBlog)
 
     app.use("/api/user", bind(userMiddleWare, 'forward'), UserRouter)

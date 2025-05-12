@@ -1,5 +1,5 @@
 GET http://localhost:4000/api/admin/blog
-Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ2NjY5OTU4LCJleHAiOjE3NDY3NTYzNTh9.dG4arAi2q9XfhUfTmdu3R3_wqpaLwbzhZYbc3PP0hLw
+Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ2Nzk5ODQyLCJleHAiOjE3NDY4ODYyNDJ9.41pf0BF3Ooy5BOYKFru-vwE2eljGKZ4CSxSAzNtxxHg
 ####
 POST http://localhost:4000/api/signup
 Content-Type: application/json
@@ -18,6 +18,3 @@ Content-Type: application/json
     "password":"031090Ph@"
 }
 ###
-Delete http://localhost:4000/api/admin/blog?id=1
-Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ2NjY5OTU4LCJleHAiOjE3NDY3NTYzNTh9.dG4arAi2q9XfhUfTmdu3R3_wqpaLwbzhZYbc3PP0hLw
-Content-Type: application/json

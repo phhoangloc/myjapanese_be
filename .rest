@@ -1,13 +1,35 @@
-GET http://localhost:4000/api/admin/blog
-Cookie:  token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ2Nzk5ODQyLCJleHAiOjE3NDY4ODYyNDJ9.41pf0BF3Ooy5BOYKFru-vwE2eljGKZ4CSxSAzNtxxHg
+
+
+
+GET http://localhost:4000/api/admin/exercise
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3MzgyNzgxLCJleHAiOjE3NDc0NjkxODF9.uepDu8PFspM1fzE-FYvdCmIHwGVzcQziZC5vJi2Lpqc
+###
+GET http://localhost:4000/api/admin/exam
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3MzgyNzgxLCJleHAiOjE3NDc0NjkxODF9.uepDu8PFspM1fzE-FYvdCmIHwGVzcQziZC5vJi2Lpqc
+###
+PUT http://localhost:4000/api/admin/exam?id=1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3MzgyNzgxLCJleHAiOjE3NDc0NjkxODF9.uepDu8PFspM1fzE-FYvdCmIHwGVzcQziZC5vJi2Lpqc
+Content-Type: application/json
+
+{
+      "exercise": {
+        "createMany":{
+            "data":[
+                {"exerId": 1 }
+            ]
+        }
+        
+    }
+}
 ####
+
 POST http://localhost:4000/api/signup
 Content-Type: application/json
 
 {
-    "username":"locpham",
+    "username":"hoangloc",
     "password":"031090Ph@",
-    "email":"ph.hoangloc@gmail.com"
+    "email":"ph.hoangloc1990@gmail.com"
 }
 ###
 POST http://localhost:4000/api/login

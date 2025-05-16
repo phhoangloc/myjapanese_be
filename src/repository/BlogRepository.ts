@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 export class BlogRepository {
 
-    async getBlog(query: any) {
+    async findBlog(query: any) {
         try {
             const result = await prisma.blog.findMany({
                 where: {
@@ -26,73 +26,37 @@ export class BlogRepository {
                     createdAt: 'desc',
                 },
             })
-            return {
-                success: true,
-                data: result
-            }
-        } catch (error: any) {
-            return {
-                success: false,
-                msg: error.message
-            }
+            return result
+        } catch (error) {
+            throw error
         }
 
     }
+
     async createBlog(body: any) {
-        const newBody = body
-        newBody.host = {
-            connect: {
-                id: body.hostId
-            }
-        }
-        newBody.hostId = undefined
         try {
-            const result = await prisma.blog.create({ data: newBody })
-            return {
-                success: true,
-                data: result
-            }
-        } catch (error: any) {
-            return {
-                success: false,
-                msg: error.message
-            }
+            const result = await prisma.blog.create({ data: body })
+            return result
+        } catch (error) {
+            return error
         }
 
     }
     async updateBlog(body: any, id: number) {
-        const newBody = body
-        newBody.host = {
-            connect: {
-                id: body.hostId
-            }
-        }
-        newBody.hostId = undefined
         try {
-            const result = await prisma.blog.update({ where: { id }, data: newBody })
-            return {
-                success: true,
-                data: result
-            }
-        } catch (error: any) {
-            return {
-                success: false,
-                msg: error.message
-            }
+            const result = await prisma.blog.update({ where: { id }, data: body })
+            return result
+        } catch (error) {
+            return error
+
         }
     }
     async deleteBlog(id: number) {
         try {
             const result = await prisma.blog.delete({ where: { id } })
-            return {
-                success: true,
-                data: result
-            }
-        } catch (error: any) {
-            return {
-                success: false,
-                msg: error.message
-            }
+            return result
+        } catch (error) {
+            return error
         }
 
     }

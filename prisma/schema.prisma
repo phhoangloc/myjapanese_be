@@ -22,6 +22,8 @@ model User {
   position    Role        @default(user)
   createdAt   DateTime    @default(now())
   blog        Blog[]
+  file        File[]
+  exam        Exam[]
 }
 enum Role {
   user
@@ -37,4 +39,45 @@ model Blog  {
   censor            Boolean       @default(false)
   createdAt         DateTime      @default(now())
   updateDate        DateTime      @default(now())
+}
+model File {
+  id                Int           @id @default(autoincrement())
+  archive           String        @default("file")
+  type              String        @default("png")
+  hostId            Int
+  host              User          @relation(fields: [hostId], references: [id])   
+  name              String      
+  createdAt         DateTime      @default(now())
+}
+model Exercise {
+  id              Int         @id @default(autoincrement())
+  archive         String      @default("exercire")
+  part            PartRole    @default(chisiki)
+  mondai          String      @default("ichi")
+  question        String      @db.Text
+  choose          String      @db.Text   
+  script          String?     @db.Text
+  explain         String      @db.Text
+  createdAt       DateTime    @default(now())
+  exam            ExamExer[]
+}
+enum PartRole {
+  chisiki
+  dokkai
+  chokai
+}
+model Exam {
+  id              Int         @id @default(autoincrement())
+  archive         String      @default("exam")
+  hostId            Int
+  host              User          @relation(fields: [hostId], references: [id])   
+  createdAt       DateTime    @default(now())
+  exercise        ExamExer[]
+}
+model ExamExer {
+  examId          Int
+  exerId          Int
+  exam            Exam        @relation(fields: [examId], references: [id])   
+  exer            Exercise    @relation(fields: [exerId], references: [id])   
+  @@id([examId, exerId])
 }

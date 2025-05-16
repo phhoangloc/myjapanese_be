@@ -1,7 +1,7 @@
 import { Response } from "express"
 import { serialize } from "cookie"
 
-export const saveCookie = (token: string, res: Response) => {
+export const saveCookie = (token: any, res: Response) => {
     res.setHeader('Set-Cookie', serialize('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -9,9 +9,4 @@ export const saveCookie = (token: string, res: Response) => {
         path: '/',
         sameSite: 'none',
     }));
-    return ({
-        success: true,
-        msg: "login success"
-    })
-
 }

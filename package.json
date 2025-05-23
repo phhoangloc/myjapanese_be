@@ -6,7 +6,7 @@
     "data": "npx prisma migrate dev --name init",
     "dev": "nodemon src/index.ts",
     "start": "nodemon build/index.js",
-    "build": "tsc",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",

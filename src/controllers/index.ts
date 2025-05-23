@@ -9,6 +9,7 @@ import { IncomingForm } from "formidable";
 import Client from "ssh2-sftp-client"
 import { sftpConfig } from "../ult/sftp"
 import moment from "moment"
+import { JSONParser } from "formidable/parsers"
 
 const iUserService = new IUserService()
 const iBlogService = new IBlogService()
@@ -97,7 +98,7 @@ export class Controller {
             res.status(400).json(error.message)
         }
     }
-    async Logout(req: Request, res: Response) {
+    async logout(req: Request, res: Response) {
         res.clearCookie('token', {
             httpOnly: true,
             secure: true, // nếu bạn dùng HTTPS
@@ -188,6 +189,12 @@ export class ExerciseController {
     }
     async createExercise(req: CustomRequest, res: Response) {
         const body = req.body
+        const newBody = req.body
+        const examIds = body.examIds
+        newBody.exercise = {
+            createMany: examIds ? { data: examIds.map((item: any) => ({ examId: item.id })) } : undefined
+        }
+        newBody.exeIds = undefined
         try {
             await iExerciseService.createExercise(body)
             res.json({
@@ -202,9 +209,15 @@ export class ExerciseController {
         const query = req.query
         const id = Number(query.id)
         const body = req.body
+        const newBody = req.body
+        const examIds = body.examIds
+        newBody.exam = {
+            deleteMany: examIds ? {} : undefined,
+            createMany: examIds ? { data: examIds.map((item: any) => ({ examId: item.id })) } : undefined
+        }
+        newBody.examIds = undefined
         try {
-            const Exercise = await iExerciseService.findAllExercise({ id })
-            await iExerciseService.updateExercise(body, id)
+            await iExerciseService.updateExercise(newBody, id)
             res.json({
                 success: true,
                 msg: "you have been update a exercise"
@@ -334,11 +347,21 @@ export class ExamController {
     async createExam(req: CustomRequest, res: Response) {
         const body = req.body
         const newBody = body
+        const exeIds: any[] = body.exeIds
+        const userIds: any[] = body.userIds
         body.host = {
             connect: { id: req.id }
         }
+        newBody.exercise = {
+            createMany: exeIds ? { data: exeIds } : undefined
+        }
+        newBody.homeworker = {
+            createMany: userIds ? { data: userIds } : undefined
+        }
+        newBody.exeIds = undefined
+        newBody.userIds = undefined
         try {
-            await iExamService.createExam(newBody)
+            const result = await iExamService.createExam(newBody)
             res.json({
                 success: true,
                 msg: "you have been post a exam"
@@ -351,17 +374,80 @@ export class ExamController {
         const query = req.query
         const id = Number(query.id)
         const body = req.body
+        const newBody = body
+        const exeIds: any[] = body.exeIds
+        const userIds: any[] = body.userIds
+        newBody.exercise = {
+            deleteMany: exeIds ? {} : undefined,
+            createMany: exeIds ? { data: exeIds } : undefined
+        }
+        newBody.homeworker = {
+            deleteMany: userIds ? {} : undefined,
+            createMany: userIds ? { data: userIds } : undefined
+        }
+        newBody.exeIds = undefined
+        newBody.userIds = undefined
         try {
             const exam = await iExamService.findAllExam({ id })
             if (exam[0].hostId != Number(req.id)) {
                 throw new Error("you are not this Exam 's owner")
             }
-            await iExamService.updateExam(body, id)
+
+            const result = await iExamService.updateExam(newBody, id)
+            console.log(result)
             res.json({
                 success: true,
-                msg: "you have been update a Exam"
+                msg: "you have been update an Exam"
+            })
+
+        } catch (error: any) {
+            res.status(400).json(error.message)
+        }
+    }
+    async doExam(req: CustomRequest, res: Response) {
+        const query = req.query
+        const userId = Number(req.id)
+        const examId = Number(query.id)
+        try {
+            const result = await iExamService.updateExam({
+                homeworkerdone: {
+                    createMany: { data: [{ userId }] }
+                }
+            }, examId)
+            res.json({
+                success: true,
+                msg: "you have been update an Exam"
             })
         } catch (error: any) {
+            res.status(400).json(error.message)
+        }
+    }
+    async finishExam(req: CustomRequest, res: Response) {
+        const query = req.query
+        const body = req.body
+        const userId = Number(req.id)
+        const examId = Number(query.id)
+        const score = Number(body.score)
+        try {
+            const result = await iExamService.updateExam({
+                homeworkerdone: {
+                    update: {
+                        where: {
+                            examId_userId: {
+                                userId,
+                                examId
+                            }
+                        },
+                        data: { score }
+                    }
+                }
+            }, examId)
+            res.json({
+                success: true,
+                msg: "you have been submit an Exam"
+            })
+        } catch (error: any) {
+            console.log(error)
             res.status(400).json(error.message)
         }
     }

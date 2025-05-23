@@ -8,9 +8,36 @@ export class ExamRepository {
                 where: {
                     archive: query.archive ? query.archive : undefined,
                     id: query.id ? Number(query.id) : undefined,
+                    homeworker: {
+                        some: {
+                            userId: query.examinee ? Number(query.examinee) : undefined
+                        }
+                    }
                 },
                 include: {
-                    exercise: true
+                    exercise: {
+                        include: {
+                            exer: true
+                        }
+                    },
+                    homeworker: {
+                        include: {
+                            user: {
+                                select: {
+                                    username: true
+                                }
+                            }
+                        }
+                    },
+                    homeworkerdone: {
+                        include: {
+                            user: {
+                                select: {
+                                    username: true
+                                }
+                            }
+                        }
+                    }
                 },
                 skip: query.skip ? Number(query.skip) : undefined,
                 take: query.limit ? Number(query.limit) : undefined,
@@ -30,16 +57,22 @@ export class ExamRepository {
             const result = await prisma.exam.create({ data: body })
             return result
         } catch (error) {
-            return error
+            throw error
         }
 
     }
     async updateExam(body: any, id: number) {
         try {
-            const result = await prisma.exam.update({ where: { id }, data: body })
+            const result = await prisma.exam.update({
+                where: { id },
+                data: body,
+                include: {
+                    exercise: true
+                },
+            })
             return result
         } catch (error) {
-            return error
+            throw error
 
         }
     }
@@ -48,7 +81,7 @@ export class ExamRepository {
             const result = await prisma.exam.delete({ where: { id } })
             return result
         } catch (error) {
-            return error
+            throw error
         }
 
     }

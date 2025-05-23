@@ -24,6 +24,8 @@ model User {
   blog        Blog[]
   file        File[]
   exam        Exam[]
+  homeworker  Homework[]
+  dohomeworker Dohomework[]
 }
 enum Role {
   user
@@ -69,10 +71,12 @@ enum PartRole {
 model Exam {
   id              Int         @id @default(autoincrement())
   archive         String      @default("exam")
-  hostId            Int
-  host              User          @relation(fields: [hostId], references: [id])   
+  hostId          Int
+  host            User          @relation(fields: [hostId], references: [id])   
   createdAt       DateTime    @default(now())
   exercise        ExamExer[]
+  homeworker      Homework[]
+  homeworkerdone  Dohomework[]
 }
 model ExamExer {
   examId          Int
@@ -80,4 +84,20 @@ model ExamExer {
   exam            Exam        @relation(fields: [examId], references: [id])   
   exer            Exercise    @relation(fields: [exerId], references: [id])   
   @@id([examId, exerId])
+}
+model Homework{
+  examId          Int
+  userId          Int
+  exam            Exam        @relation(fields: [examId], references: [id])   
+  user            User        @relation(fields: [userId], references: [id])   
+  @@id([examId, userId])
+}
+model Dohomework{
+  examId          Int
+  userId          Int
+  exam            Exam        @relation(fields: [examId], references: [id])   
+  user            User        @relation(fields: [userId], references: [id])   
+  score           Int         @default(0)
+  createdAt         DateTime      @default(now())
+  @@id([examId, userId])
 }

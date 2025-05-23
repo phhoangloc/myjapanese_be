@@ -1,25 +1,19 @@
 
-
-
-GET http://localhost:4000/api/admin/exercise
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3MzgyNzgxLCJleHAiOjE3NDc0NjkxODF9.uepDu8PFspM1fzE-FYvdCmIHwGVzcQziZC5vJi2Lpqc
+GET http://localhost:4000/api/exam
 ###
-GET http://localhost:4000/api/admin/exam
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3MzgyNzgxLCJleHAiOjE3NDc0NjkxODF9.uepDu8PFspM1fzE-FYvdCmIHwGVzcQziZC5vJi2Lpqc
+GET http://localhost:4000/api/user/exam?examinee=8
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzQ3NzIwNjA0LCJleHAiOjE3NDc4MDcwMDR9.zK94ugf_BKZnrHRU3m6pdSUqCQkuos3GW6pz2_tlClk;
 ###
-PUT http://localhost:4000/api/admin/exam?id=1
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3MzgyNzgxLCJleHAiOjE3NDc0NjkxODF9.uepDu8PFspM1fzE-FYvdCmIHwGVzcQziZC5vJi2Lpqc
+PUT http://localhost:4000/api/user/exam?id=1
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3NjM2MTgyLCJleHAiOjE3NDc3MjI1ODJ9.M91zjypEJ2MyUyloNcyqk7bmK7G2-mwiIQoOeJ4g0m8
 Content-Type: application/json
 
 {
-      "exercise": {
-        "createMany":{
-            "data":[
-                {"exerId": 1 }
-            ]
+
+    "homeworkerdone": {
+        "createMany": { 
+            "data": [{ "userId":8 }] }
         }
-        
-    }
 }
 ####
 
@@ -36,7 +30,7 @@ POST http://localhost:4000/api/login
 Content-Type: application/json
 
 {
-    "username":"locpham",
+    "username":"hoangloc",
     "password":"031090Ph@"
 }
 ###

@@ -29,4 +29,4 @@ AdminRouter.post("/file", fileController.createfile)
 AdminRouter.delete("/file", fileController.DeleteFile)
 
 
-AdminRouter.post("/logout", adminController.Logout)
+AdminRouter.post("/logout", adminController.logout)

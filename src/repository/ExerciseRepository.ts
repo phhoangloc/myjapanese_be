@@ -41,7 +41,13 @@ export class ExerciseRepository {
     }
     async updateExercise(body: any, id: number) {
         try {
-            const result = await prisma.exercise.update({ where: { id }, data: body })
+            const result = await prisma.exercise.update({
+                where: { id },
+                data: body,
+                include: {
+                    exam: true
+                },
+            })
             return result
         } catch (error) {
             return error

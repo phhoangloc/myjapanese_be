@@ -13,7 +13,7 @@ const transporter = createTransport({
 
 export const sendMailToAcceptRegister = async (email: string) => {
     const mainOptions = {
-        from: 'LOCAND (ph.hoangloc@gmail.com) <no-reply>',
+        from: '日本語を食べたい (ph.hoangloc@gmail.com) <no-reply>',
         to: email,
         subject: 'Active your Account',
         html: `

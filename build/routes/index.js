@@ -1,0 +1,22 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.route = void 0;
+const controllers_1 = require("../controllers");
+const user_1 = require("./user");
+const admin_1 = require("./admin");
+const controller = new controllers_1.Controller();
+const blogController = new controllers_1.BlogController();
+const userMiddlwear = new controllers_1.Middlewares("user");
+const adminMiddlwear = new controllers_1.Middlewares("admin");
+const examController = new controllers_1.ExamController();
+const route = (app) => {
+    app.get("/api/checkuser", controller.findUserByQuery);
+    app.post("/api/signup", controller.signup);
+    app.get("/api/active", controller.active);
+    app.post("/api/login", controller.login);
+    app.get("/api/blog", blogController.findBlog);
+    app.get("/api/exam", examController.findExam);
+    app.use("/api/user", userMiddlwear.checkPosition, user_1.UserRouter);
+    app.use("/api/admin", adminMiddlwear.checkPosition, admin_1.AdminRouter);
+};
+exports.route = route;

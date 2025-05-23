@@ -2,7 +2,8 @@ import express from "express"
 import { route } from "./routes"
 import bodyParser from "body-parser"
 import cors from "cors"
-
+import { createServer } from 'https';
+import { readFileSync } from 'fs';
 const app = express()
 
 require('dotenv').config()
@@ -18,7 +19,14 @@ app.use(cors({
 app.use(bodyParser.json())
 
 route(app)
+const options = {
+    key: readFileSync('/etc/letsencrypt/live/nihongotabetai.online/privkey.pem'),
+    cert: readFileSync('/etc/letsencrypt/live/nihongotabetai.online/fullchain.pem'),
+};
 
-app.listen(port, () => {
-    console.log("server is running with port - " + port)
+// app.listen(port, () => {
+//     console.log("server is running with port - " + port)
+// })
+createServer(options, app).listen(port, () => {
+    console.log("server is running with port " + port)
 })

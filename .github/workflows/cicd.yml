@@ -1,0 +1,29 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Build via SSH
+        run: |
+          ssh -o StrictHostKeyChecking=no root@buoncf.jp << 'EOF'
+            cd /home/locpham/myjapanese_be
+            git pull https://x-access-token:${{secrets.MY_GITHUB_TOKEN}}@github.com/phhoangloc/myjapanese_be.git
+            npm install
+            npm run build
+            pm2 list | grep -q 'myjapanese_be' && pm2 delete myjapanese_be
+            pm2 start npm --name "myjapanese_be" -- start
+            pm2 save
+          EOF

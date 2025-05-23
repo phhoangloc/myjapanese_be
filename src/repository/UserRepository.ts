@@ -7,7 +7,7 @@ export class UserRepository {
         try {
             const result = await prisma.user.findMany({
                 where: {
-                    id: query.id ? query.id : undefined,
+                    id: query.id ? Number(query.id) : undefined,
                 }
             })
             return result

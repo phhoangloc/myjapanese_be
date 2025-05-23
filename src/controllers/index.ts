@@ -110,6 +110,18 @@ export class Controller {
             message: 'Logged out successfully'
         });
     }
+    async createUser(req: Request, res: Response) {
+        const body = req.body
+        try {
+            await iUserService.signup(body)
+            res.json({
+                success: true,
+                msg: "check your email to active account!"
+            })
+        } catch (error: any) {
+            res.status(400).json(error.message)
+        }
+    }
 }
 export class BlogController {
 

@@ -96,4 +96,25 @@ export class UserService {
 
 
     }
+    async createUser(body: any) {
+        const isUsernameExist = await iUserRepository.findOneUser({ username: body.username })
+        if (isUsernameExist) {
+            throw new Error("username is exited")
+        }
+        const isEmailExist = await iUserRepository.findOneUser({ email: body.email })
+        if (isEmailExist) {
+            throw new Error("email is exited")
+        }
+        const salt = genSaltSync(10);
+
+        const mahoa_password = body.password && hashSync(body.password.toString(), salt);
+        body.password = mahoa_password
+        try {
+            const newUser = new User(body)
+            await iUserRepository.createUser(newUser)
+            return true
+        } catch (error) {
+            throw error
+        }
+    }
 }

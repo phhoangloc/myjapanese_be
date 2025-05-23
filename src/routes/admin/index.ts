@@ -10,6 +10,8 @@ const examController = new ExamController()
 export const AdminRouter = Router()
 
 AdminRouter.get("/user", adminController.findUser)
+AdminRouter.post("/user", adminController.createUser)
+
 AdminRouter.get("/blog", blogController.findBlog)
 AdminRouter.post("/blog", blogController.createBlog)
 AdminRouter.put("/blog", blogController.updateBlog)

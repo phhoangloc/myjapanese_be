@@ -1,8 +1,9 @@
 
-GET http://localhost:4001/api/exam
+GET http://localhost:4001/api
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzQ4MjIyNjU1LCJleHAiOjE3NDgzMDkwNTV9.1axWUd5uP_wsVL3sIGb1XDSRMTFuI-SPnXl2zO_DyXo
 ###
-GET http://localhost:4000/api/user/exam?examinee=8
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzQ3NzIwNjA0LCJleHAiOjE3NDc4MDcwMDR9.zK94ugf_BKZnrHRU3m6pdSUqCQkuos3GW6pz2_tlClk;
+GET http://localhost:4001/api/user/exam?examinee=8
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzQ4MjIyNjU1LCJleHAiOjE3NDgzMDkwNTV9.1axWUd5uP_wsVL3sIGb1XDSRMTFuI-SPnXl2zO_DyXo
 ###
 PUT http://localhost:4000/api/user/exam?id=1
 Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ3NjM2MTgyLCJleHAiOjE3NDc3MjI1ODJ9.M91zjypEJ2MyUyloNcyqk7bmK7G2-mwiIQoOeJ4g0m8
@@ -26,7 +27,7 @@ Content-Type: application/json
     "email":"ph.hoangloc1990@gmail.com"
 }
 ###
-POST http://localhost:4000/api/login
+POST http://localhost:4001/api/login
 Content-Type: application/json
 
 {

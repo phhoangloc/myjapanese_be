@@ -8,11 +8,11 @@ export class ExamRepository {
                 where: {
                     archive: query.archive ? query.archive : undefined,
                     id: query.id ? Number(query.id) : undefined,
-                    homeworker: {
+                    homeworker: query.examinee ? {
                         some: {
-                            userId: query.examinee ? Number(query.examinee) : undefined
+                            userId: Number(query.examinee)
                         }
-                    }
+                    } : undefined
                 },
                 include: {
                     exercise: {

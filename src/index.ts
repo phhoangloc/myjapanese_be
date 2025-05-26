@@ -24,9 +24,11 @@ const options = {
     cert: readFileSync('/etc/letsencrypt/live/nihongotabetai.online/fullchain.pem'),
 };
 
-// app.listen(port, () => {
-//     console.log("server is running with port - " + port)
-// })
+
 createServer(options, app).listen(port, () => {
     console.log("server is running with port " + port)
 })
+
+// app.listen(port, () => {
+//     console.log("server is running with port - " + port)
+// })

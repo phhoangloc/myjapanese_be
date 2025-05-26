@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import { IExamService, IBlogService, IExerciseService, IFileService, IUserService } from "../services/IServices"
+import { IExamService, IBlogService, IExerciseService, IFileService, IUserService, IDoHomeWorkService } from "../services/IServices"
 import { saveCookie } from "../ult/cookie"
 import { parse } from "cookie"
 import { verify } from "jsonwebtoken"
@@ -16,6 +16,7 @@ const iBlogService = new IBlogService()
 const iFileService = new IFileService()
 const iExerciseService = new IExerciseService()
 const iExamService = new IExamService()
+const iDoHomeWorkService = new IDoHomeWorkService()
 interface CustomRequest extends Request {
     id?: number;
 }
@@ -473,6 +474,60 @@ export class ExamController {
                 msg: "you have been delete a Exam"
             })
         } catch (error: any) {
+            res.status(400).json(error.message)
+        }
+    }
+}
+
+export class DoHomeWorkController {
+    async findResult(req: CustomRequest, res: Response) {
+        const query = req.query
+        const ids = {
+            examId: Number(query.id),
+            userId: req.id ? req.id : 0
+        }
+        try {
+            const result = await iDoHomeWorkService.findAllDoHomeWork(query, ids)
+            res.json({
+                success: true,
+                data: result
+            })
+        } catch (error: any) {
+            res.status(400).json(error.message)
+        }
+
+    }
+    async createHomeWork(req: CustomRequest, res: Response) {
+        const body = req.body
+        const userId = Number(req.id)
+        const examId = Number(body.examId)
+
+        try {
+            await iDoHomeWorkService.createDoHomeWork({
+                userId,
+                examId,
+            })
+            res.json({
+                success: true,
+                msg: "you have been created an DoHomeWork"
+            })
+        } catch (error: any) {
+            res.status(400).json(error.message)
+        }
+    }
+    async updateHomeWork(req: CustomRequest, res: Response) {
+        const query = req.query
+        const body = req.body
+        const userId = Number(req.id)
+        const examId = Number(query.id)
+        try {
+            await iDoHomeWorkService.UpdateDoHomeWork(body, { examId, userId })
+            res.json({
+                success: true,
+                msg: "you have been created an DoHomeWork"
+            })
+        } catch (error: any) {
+            console.log(error)
             res.status(400).json(error.message)
         }
     }

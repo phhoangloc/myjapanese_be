@@ -97,7 +97,7 @@ model Dohomework{
   userId          Int
   exam            Exam        @relation(fields: [examId], references: [id])   
   user            User        @relation(fields: [userId], references: [id])   
-  score           Int         @default(0)
-  createdAt         DateTime      @default(now())
+  answers         String?
+  createdAt       DateTime    @default(now())
   @@id([examId, userId])
 }

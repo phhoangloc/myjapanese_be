@@ -1,6 +1,6 @@
 
-GET http://localhost:4001/api
-Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzQ4MjIyNjU1LCJleHAiOjE3NDgzMDkwNTV9.1axWUd5uP_wsVL3sIGb1XDSRMTFuI-SPnXl2zO_DyXo
+GET http://localhost:4001/api/admin/result
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQ4MjI0MjUwLCJleHAiOjE3NDgzMTA2NTB9.pdgmeG6SpoFdcksUdOTOo-3cz-4B0XVAWneQN5YhKnM
 ###
 GET http://localhost:4001/api/user/exam?examinee=8
 Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaWF0IjoxNzQ4MjIyNjU1LCJleHAiOjE3NDgzMDkwNTV9.1axWUd5uP_wsVL3sIGb1XDSRMTFuI-SPnXl2zO_DyXo
@@ -31,7 +31,7 @@ POST http://localhost:4001/api/login
 Content-Type: application/json
 
 {
-    "username":"hoangloc",
+    "username":"",
     "password":"031090Ph@"
 }
 ###

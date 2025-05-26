@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { Controller, BlogController, FileController, ExerciseController, ExamController } from "../../controllers";
+import { Controller, BlogController, FileController, ExerciseController, ExamController, DoHomeWorkController } from "../../controllers";
 
 const adminController = new Controller()
 const blogController = new BlogController()
 const fileController = new FileController()
 const exerciseController = new ExerciseController()
 const examController = new ExamController()
-
+const doHomWorkController = new DoHomeWorkController()
 export const AdminRouter = Router()
 
 AdminRouter.get("/user", adminController.findUser)
@@ -30,5 +30,6 @@ AdminRouter.get("/file", fileController.findFile)
 AdminRouter.post("/file", fileController.createfile)
 AdminRouter.delete("/file", fileController.DeleteFile)
 
+AdminRouter.get("/result", doHomWorkController.findResult)
 
 AdminRouter.post("/logout", adminController.logout)

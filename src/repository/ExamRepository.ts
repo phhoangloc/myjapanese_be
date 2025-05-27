@@ -24,6 +24,7 @@ export class ExamRepository {
                         include: {
                             user: {
                                 select: {
+                                    id: true,
                                     username: true
                                 }
                             }
@@ -33,6 +34,7 @@ export class ExamRepository {
                         include: {
                             user: {
                                 select: {
+                                    id: true,
                                     username: true
                                 }
                             }

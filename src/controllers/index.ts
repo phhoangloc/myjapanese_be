@@ -482,10 +482,12 @@ export class ExamController {
 export class DoHomeWorkController {
     async findResult(req: CustomRequest, res: Response) {
         const query = req.query
+        // const ids = req.body.ids
         const ids = {
             examId: Number(query.id),
             userId: req.id ? req.id : 0
         }
+
         try {
             const result = await iDoHomeWorkService.findAllDoHomeWork(query, ids)
             res.json({
